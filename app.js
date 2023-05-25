@@ -1,9 +1,11 @@
 require("dotenv").config();
 
-
 const express = require("express");
 
 const app = express();
+
+// MIDDLEWARE //
+app.use(express.json());
 
 const port = process.env.APP_PORT ?? 5000;
 
@@ -21,8 +23,13 @@ app.get("/api/movies/:id", movieHandlers.getMovieById);
 // ROUTE TO API/USERS QUEST EXPRESS NUMBER 2//
 const users = require ("./users");
 app.get("/api/users", users.getUsers);
+
 // ROUTE TO API/USERS/ID QUEST EXPRESS NUMBER 2 //
 app.get("/api/users/:id", users.getUserById);
+
+// CREATE POST ROUTE QUEST NUMBER 3 //
+app.post("/api/movies", movieHandlers.postMovie)
+app.post("/api/users", users.postUser)
 
 app.listen(port, (err) => {
   if (err) {
